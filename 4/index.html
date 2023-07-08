@@ -1,0 +1,131 @@
+
+<!DOCTYPE  html> 
+
+<html lang= "pl" > 
+
+ <head>  
+    <meta charset="utf-8"/>
+    <title>  Sokuł - CV </title>
+ 
+	<link  rel="stylesheet" href="Untitled-2.css"/>
+	<meta name="destricption" content="k"/>
+    <meta name="keywords" content="k "/>
+    <meta http-equiv="X-UA-Contable" content="IE=edge,chrome=1"/>
+ 
+ </head> 
+ 
+ <body> 
+    <div class="container">
+       <div class="logo"> 
+         
+         poszukiwany
+       
+      </div>
+
+        
+       <div class="rozw"> 
+        
+         <img class="twarz"  src="twarz.jpg"></img> 
+        
+        </div>
+
+        <div class="nag"> 
+        
+         nagroda:<br> 1.000.000$
+        
+        </div>
+
+        <div class="informacje"> 
+        
+            poszukiwany żywy lub martwy 
+         
+        </div>
+
+     <div class="odliczn">
+
+      <h3 style="font-size: 20px;"></h3>
+
+     </div>
+     
+     
+     
+     <script>
+         const element = document.querySelector("h3");
+     
+         function lz(i) {
+             return `${i}`.padStart(2, "0");
+         }
+     
+        
+         function calculateTimeDifference({year, month, day, hour = 0, minutes = 0, seconds = 0}) {
+             const now = new Date();
+     
+             //rok, miesiąc, dzień, godzina, minuta
+             const importantDate = new Date(year, month-1, day, hour, minutes, seconds);
+             const msInADay = 24 * 60 * 60 * 1000; 
+     
+             const timeDifference = (importantDate.getTime() - now.getTime());
+     
+             const endTime = timeDifference < 0; //czy koniec odliczania
+     
+             const eDaysToDate = timeDifference / msInADay;
+             const daysToDate = Math.floor(eDaysToDate);
+     
+         
+             let daysToDateFix = (daysToDate < 1)? 1 : daysToDate;
+     
+             const eHoursToDate = (eDaysToDate % daysToDateFix)*24;
+             const hoursToDate = Math.floor(eHoursToDate);
+     
+             const eMinutesToDate = (eHoursToDate - hoursToDate)*60;
+             const minutesToDate = Math.floor(eMinutesToDate);
+     
+             const eSecondsToDate = Math.floor((eMinutesToDate - minutesToDate)*60);
+             const secondsToDate = Math.floor(eSecondsToDate);
+     
+             return {
+                 days : daysToDate,
+                 hours : hoursToDate,
+                 minutes : minutesToDate,
+                 seconds : secondsToDate,
+                 endTime
+             }
+         }
+     
+         
+         function showTimer(date) {
+             const dateParts = date.split("-");
+             if (dateParts.length === 1) return;
+     
+             const [year, month, day, hour = 0, minutes = 0, seconds = 0] = dateParts;
+     
+            
+             const timeDiff = calculateTimeDifference({ year, month, day, hour, minutes, seconds });
+     
+             {
+               
+                 const {days, hours, minutes, seconds, endTime} = timeDiff;
+     
+                 if (!endTime) {
+                     element.innerHTML = `
+                     do zrealizowania zostało :
+                         <b>${days} dni
+                         ${hours} godzin
+                         ${minutes} minut i
+                         ${lz(seconds)} sekund</b>
+                     `;
+     
+                     setTimeout(() => showTimer(date), 1000);
+                 } else {
+                     element.innerHTML = `koniec czasu`;
+                 }
+             }
+         }
+     
+         showTimer("2023-07-10");
+         
+      </script>
+
+ </body> 
+
+</html> 
